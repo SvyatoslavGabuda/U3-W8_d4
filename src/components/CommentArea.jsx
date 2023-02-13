@@ -6,7 +6,7 @@ import AddComment from "./AddComment";
 
 class CommentArea extends Component {
   state = {
-    idComment: this.props.elementID,
+    // idComment: this.props.elementID,
     comment: [],
     openmodal: false,
   };
@@ -14,7 +14,7 @@ class CommentArea extends Component {
   fetchComments = async () => {
     try {
       const response = await fetch(
-        `https://striveschool-api.herokuapp.com/api/comments/${this.state.idComment}`,
+        `https://striveschool-api.herokuapp.com/api/comments/${this.props.elementID}`,
         {
           headers: {
             Authorization:
@@ -25,8 +25,7 @@ class CommentArea extends Component {
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
-        console.log(this.state.comment);
+
         this.setState({
           comment: data,
         });
@@ -36,9 +35,12 @@ class CommentArea extends Component {
     }
   };
   componentDidMount() {
-    console.log("DIDMOUNT");
     this.fetchComments();
-    console.log("aaa", this.state.comment);
+  }
+  componentDidUpdate(prevProps) {
+    if (prevProps.elementID !== this.props.elementID) {
+      this.fetchComments();
+    }
   }
 
   render() {

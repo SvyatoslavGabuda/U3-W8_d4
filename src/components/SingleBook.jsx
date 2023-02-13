@@ -7,16 +7,12 @@ import CommentArea from "./CommentArea";
 class SingleBook extends Component {
   state = {
     selezionato: false,
-    borderColor: "lightblue",
+
     addedToCart: null,
     buyed: null,
+    selezionatoNeiCommenti: false,
   };
   selected = () => {
-    // if (this.state.borderColor === "lightblue") {
-    //   this.setState({ borderColor: "red" });
-    // } else {
-    //   this.setState({ borderColor: "lightblue" });
-    // }
     this.setState({
       selezionato: !this.state.selezionato,
     });
@@ -34,17 +30,44 @@ class SingleBook extends Component {
     </Tooltip>
   );
 
+  selezinatoDaiCommenti = () => {
+    if (this.props.bookID === this.props.book.asin) {
+      console.log("uguale");
+      this.setState({ selezionatoNeiCommenti: !this.state.selezionatoNeiCommenti });
+    }
+  };
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.bookID === this.props.book.asin) {
+      //  console.log("update");
+      //  this.selezinatoDaiCommenti();
+      if (this.props.bookID === this.props.book.asin) {
+        console.log("uguale");
+        this.setState({ selezionatoNeiCommenti: !this.state.selezionatoNeiCommenti });
+      }
+    }
+  }
+
   render() {
     return (
       <>
         <Col className="my-2" id={this.props.book.asin}>
           <Card
             className="myCard"
-            style={{ borderColor: this.state.selezionato ? "red" : "lightblue" }}
+            style={{
+              borderColor: this.state.selezionatoNeiCommenti ? "red" : "lightblue",
+            }}
           >
-            <Card.Img onClick={this.selected} className="myCardImg" src={this.props.book.img} />
+            <Card.Img
+              onClick={() => {
+                this.props.takeBook(this.props.book.asin);
+                this.selezinatoDaiCommenti();
+              }}
+              className="myCardImg"
+              src={this.props.book.img}
+            />
             <Card.Body className="myCardBody">
-              <Card.Title>{this.props.book.title}</Card.Title>
+              <Card.Title onClick={() => this.selected()}>{this.props.book.title}</Card.Title>
               <Card.Text>
                 $ - {this.props.book.price}{" "}
                 {this.state.addedToCart && <span> Aggiunto al carello </span>} -

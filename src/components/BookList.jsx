@@ -6,16 +6,18 @@ import historyBooks from "../books/history.json";
 import horrorBooks from "../books/horror.json";
 import romanceBooks from "../books/romance.json";
 import scifiBooks from "../books/scifi.json";
+import CommentArea from "./CommentArea";
 
 class BookList extends Component {
   state = {
     genres: ["Fantasy", "History", "Horror", "Romance", "Scifi"],
     book: [],
     foundBook: [],
+    bookID: null,
+    // libroSelzionato: false,
   };
 
   loadBooks = (e) => {
-    console.log(e.target);
     if (e.target.id === "Fantasy") {
       this.setState({ book: fantasyBooks });
     }
@@ -37,7 +39,6 @@ class BookList extends Component {
   };
 
   findBook = (e) => {
-    console.log(e.target.value);
     const librtoTrovarto = [
       ...fantasyBooks,
       ...historyBooks,
@@ -46,13 +47,19 @@ class BookList extends Component {
       ...scifiBooks,
     ].filter((book) => book.title.toLowerCase().includes(e.target.value.toLowerCase()));
 
-    console.log(librtoTrovarto);
     this.setState({ foundBook: librtoTrovarto });
   };
 
   close = () => {
     this.setState({ foundBook: [] });
   };
+
+  takeBookID = (newBookID) => {
+    this.setState({ bookID: newBookID });
+  };
+  // isMyBookSelected = () => {
+  //   this.setState({ libroSelzionato: !this.state.libroSelzionato });
+  // };
 
   render() {
     return (
@@ -81,16 +88,37 @@ class BookList extends Component {
               </Button>
             </Col>
           </Row>
-          <Row className="mt-4 row-cols-1 row-cols-md-3 row-cols-lg-4 align-items-stretch">
-            {this.state.foundBook.length > 0 &&
-              this.state.foundBook.map((el, index) => (
-                <SingleBook book={el} key={`book-${index}-${el.asin}`}></SingleBook>
-              ))}
+          {/* libri in base al search Imput */}
+          <Row className="position-relative">
+            <Col xs="10">
+              <Row className="mt-4 row-cols-1 row-cols-md-3 row-cols-lg-4 align-items-stretch">
+                {this.state.foundBook.length > 0 &&
+                  this.state.foundBook.map((el, index) => (
+                    <SingleBook
+                      book={el}
+                      key={`book-${index}-${el.asin}`}
+                      takeBook={this.takeBookID}
+                      bookID={this.state.bookID ? this.state.bookID : 0}
+                    ></SingleBook>
+                  ))}
+              </Row>
+            </Col>
+            {/* commenti search input */}
+            <Col xs="2" className="commenti">
+              <h2>Commmenti:</h2>
+              {this.state.bookID ? (
+                <CommentArea elementID={this.state.bookID} />
+              ) : (
+                <p>clicca su un libro</p>
+              )}
+            </Col>
           </Row>
+
           <Row>
             <h2>Oppure scegli una delle categorie sottostanti:</h2>
           </Row>
-
+          {/* Libri in base ai bottoni di categoria  */}
+          {/* Bottini selezione */}
           <Row className="mt-4">
             {this.state.genres.map((el, index) => (
               <Col className="text-center" key={`categoria-${index}`}>
@@ -105,9 +133,15 @@ class BookList extends Component {
               </Button>
             </Col>
           </Row>
+          {/* libiri in base ai bottoni */}
           <Row className="mt-4 row-cols-1 row-cols-md-3 row-cols-lg-4  align-items-stretch">
             {this.state.book.map((bookF) => (
-              <SingleBook book={bookF} key={bookF.asin}></SingleBook>
+              <SingleBook
+                book={bookF}
+                key={bookF.asin}
+                takeBook={this.takeBookID}
+                bookID={this.state.bookID ? this.state.bookID : 0}
+              ></SingleBook>
             ))}
           </Row>
         </Container>
