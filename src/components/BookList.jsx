@@ -89,7 +89,7 @@ class BookList extends Component {
             </Col>
           </Row>
           {/* libri in base al search Imput */}
-          <Row className="position-relative">
+          <Row>
             <Col xs="10">
               <Row className="mt-4 row-cols-1 row-cols-md-3 row-cols-lg-4 align-items-stretch">
                 {this.state.foundBook.length > 0 &&
@@ -102,47 +102,49 @@ class BookList extends Component {
                     ></SingleBook>
                   ))}
               </Row>
+              <Row>
+                <h2>Oppure scegli una delle categorie sottostanti:</h2>
+              </Row>
+              {/* Libri in base ai bottoni di categoria  */}
+              {/* Bottini selezione */}
+              <Row className="mt-4">
+                {this.state.genres.map((el, index) => (
+                  <Col className="text-center" key={`categoria-${index}`}>
+                    <Button className="w-100 catBtn" onClick={this.loadBooks} id={el}>
+                      {el}
+                    </Button>
+                  </Col>
+                ))}
+                <Col>
+                  <Button className="closeBtn" onClick={this.loadBooks} id="CloseAll">
+                    Close
+                  </Button>
+                </Col>
+              </Row>
+              {/* libiri in base ai bottoni */}
+              <Row className="mt-4 row-cols-1 row-cols-md-3 row-cols-lg-4  align-items-stretch">
+                {this.state.book.map((bookF) => (
+                  <SingleBook
+                    book={bookF}
+                    key={bookF.asin}
+                    takeBook={this.takeBookID}
+                    bookID={this.state.bookID ? this.state.bookID : 0}
+                  ></SingleBook>
+                ))}
+              </Row>
             </Col>
-            {/* commenti search input */}
-            <Col xs="2" className="commenti">
-              <h2>Commmenti:</h2>
-              {this.state.bookID ? (
-                <CommentArea elementID={this.state.bookID} />
-              ) : (
-                <p>clicca su un libro</p>
-              )}
-            </Col>
-          </Row>
 
-          <Row>
-            <h2>Oppure scegli una delle categorie sottostanti:</h2>
-          </Row>
-          {/* Libri in base ai bottoni di categoria  */}
-          {/* Bottini selezione */}
-          <Row className="mt-4">
-            {this.state.genres.map((el, index) => (
-              <Col className="text-center" key={`categoria-${index}`}>
-                <Button className="w-100 catBtn" onClick={this.loadBooks} id={el}>
-                  {el}
-                </Button>
+            {/* commenti search input */}
+            <Col xs="2" className="position-relative">
+              <Col className="commenti">
+                <h2>Commmenti:</h2>
+                {this.state.bookID ? (
+                  <CommentArea elementID={this.state.bookID} />
+                ) : (
+                  <p>clicca su un libro</p>
+                )}
               </Col>
-            ))}
-            <Col>
-              <Button className="closeBtn" onClick={this.loadBooks} id="CloseAll">
-                Close
-              </Button>
             </Col>
-          </Row>
-          {/* libiri in base ai bottoni */}
-          <Row className="mt-4 row-cols-1 row-cols-md-3 row-cols-lg-4  align-items-stretch">
-            {this.state.book.map((bookF) => (
-              <SingleBook
-                book={bookF}
-                key={bookF.asin}
-                takeBook={this.takeBookID}
-                bookID={this.state.bookID ? this.state.bookID : 0}
-              ></SingleBook>
-            ))}
           </Row>
         </Container>
       </>

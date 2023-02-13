@@ -30,21 +30,20 @@ class SingleBook extends Component {
     </Tooltip>
   );
 
+  // this.setState({ selezionatoNeiCommenti: !this.state.selezionatoNeiCommenti });
   selezinatoDaiCommenti = () => {
     if (this.props.bookID === this.props.book.asin) {
       console.log("uguale");
-      this.setState({ selezionatoNeiCommenti: !this.state.selezionatoNeiCommenti });
+      this.setState({ selezionatoNeiCommenti: true });
+    } else {
+      this.setState({ selezionatoNeiCommenti: false });
     }
   };
 
   componentDidUpdate(prevProps) {
-    if (prevProps.bookID === this.props.book.asin) {
+    if (prevProps.bookID !== this.props.bookID) {
       //  console.log("update");
-      //  this.selezinatoDaiCommenti();
-      if (this.props.bookID === this.props.book.asin) {
-        console.log("uguale");
-        this.setState({ selezionatoNeiCommenti: !this.state.selezionatoNeiCommenti });
-      }
+      this.selezinatoDaiCommenti();
     }
   }
 
@@ -83,7 +82,7 @@ class SingleBook extends Component {
                   Add To Cart <i className="bi bi-cart4"></i>
                 </Button>
               </OverlayTrigger>
-              {this.state.selezionato && <CommentArea elementID={this.props.book.asin} />}
+              {/* {this.state.selezionato && <CommentArea elementID={this.props.book.asin} />} */}
             </Card.Body>
           </Card>
         </Col>
