@@ -30,10 +30,8 @@ class SingleBook extends Component {
     </Tooltip>
   );
 
-  // this.setState({ selezionatoNeiCommenti: !this.state.selezionatoNeiCommenti });
   selezinatoDaiCommenti = () => {
     if (this.props.bookID === this.props.book.asin) {
-      console.log("uguale");
       this.setState({ selezionatoNeiCommenti: true });
     } else {
       this.setState({ selezionatoNeiCommenti: false });

@@ -130,7 +130,7 @@ class BookList extends Component {
               </Row>
             </Col>
 
-            {/* commenti search input */}
+            {/* commenti */}
             <Col xs="3" className="position-relative">
               <Col className="commenti">
                 <h2>Commmenti:</h2>
