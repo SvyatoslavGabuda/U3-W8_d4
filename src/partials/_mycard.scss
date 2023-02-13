@@ -39,6 +39,8 @@
   background-image: linear-gradient(to right, #070537, #601151, #ae2a4e, #e16636, #ebb212);
   border: none;
   border-radius: 20px;
+  padding: 5px 10px;
+  color: aliceblue;
   &:hover {
     background-image: linear-gradient(to left, #070537, #601151, #ae2a4e, #e16636, #ebb212);
   }
@@ -52,5 +54,14 @@
   &:hover {
     background-color: #601151;
     color: yellow;
+  }
+}
+.myTitle {
+  border: #601151 2px double;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 5px 8px;
+  &:hover {
+    background-color: lightblue;
   }
 }

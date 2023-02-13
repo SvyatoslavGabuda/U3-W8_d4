@@ -6,7 +6,6 @@ import AddComment from "./AddComment";
 
 class CommentArea extends Component {
   state = {
-    // idComment: this.props.elementID,
     comment: [],
     openmodal: false,
   };
@@ -34,6 +33,7 @@ class CommentArea extends Component {
       console.log("c'e un errore grave");
     }
   };
+
   componentDidMount() {
     this.fetchComments();
   }
@@ -47,6 +47,7 @@ class CommentArea extends Component {
     return (
       <>
         <button
+          className="catBtn"
           onClick={() => {
             this.setState({ openmodal: !this.state.openmodal });
           }}

@@ -28,12 +28,18 @@ class SingleComment extends Component {
     return (
       <>
         <ListGroup.Item key={this.props.commento._id}>
-          <span>{this.props.commento.author}</span>
+          <p>
+            <span>{this.props.commento.author}</span>
+          </p>
           <Badge bg="warning" text="dark">
-            {this.props.commento.rate}
+            Voto: {this.props.commento.rate}
           </Badge>
-          <span> {this.props.commento.comment}</span>
-          <button onClick={() => this.deleteComment(this.props.commento._id)}>Del</button>
+          <p>
+            <span> {this.props.commento.comment}</span>
+          </p>
+          <button className="closeBtn" onClick={() => this.deleteComment(this.props.commento._id)}>
+            Del
+          </button>
         </ListGroup.Item>
       </>
     );

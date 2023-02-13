@@ -14,7 +14,6 @@ class BookList extends Component {
     book: [],
     foundBook: [],
     bookID: null,
-    // libroSelzionato: false,
   };
 
   loadBooks = (e) => {
@@ -57,9 +56,6 @@ class BookList extends Component {
   takeBookID = (newBookID) => {
     this.setState({ bookID: newBookID });
   };
-  // isMyBookSelected = () => {
-  //   this.setState({ libroSelzionato: !this.state.libroSelzionato });
-  // };
 
   render() {
     return (
@@ -90,8 +86,8 @@ class BookList extends Component {
           </Row>
           {/* libri in base al search Imput */}
           <Row>
-            <Col xs="10">
-              <Row className="mt-4 row-cols-1 row-cols-md-3 row-cols-lg-4 align-items-stretch">
+            <Col xs="9">
+              <Row className="mt-4 row-cols-1 row-cols-md-2 row-cols-lg-3 align-items-stretch">
                 {this.state.foundBook.length > 0 &&
                   this.state.foundBook.map((el, index) => (
                     <SingleBook
@@ -122,7 +118,7 @@ class BookList extends Component {
                 </Col>
               </Row>
               {/* libiri in base ai bottoni */}
-              <Row className="mt-4 row-cols-1 row-cols-md-3 row-cols-lg-4  align-items-stretch">
+              <Row className="mt-4 row-cols-1 row-cols-md-2 row-cols-lg-3  align-items-stretch">
                 {this.state.book.map((bookF) => (
                   <SingleBook
                     book={bookF}
@@ -135,7 +131,7 @@ class BookList extends Component {
             </Col>
 
             {/* commenti search input */}
-            <Col xs="2" className="position-relative">
+            <Col xs="3" className="position-relative">
               <Col className="commenti">
                 <h2>Commmenti:</h2>
                 {this.state.bookID ? (

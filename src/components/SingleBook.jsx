@@ -66,7 +66,9 @@ class SingleBook extends Component {
               src={this.props.book.img}
             />
             <Card.Body className="myCardBody">
-              <Card.Title onClick={() => this.selected()}>{this.props.book.title}</Card.Title>
+              <Card.Title className="myTitle" onClick={() => this.selected()}>
+                {this.props.book.title}
+              </Card.Title>
               <Card.Text>
                 $ - {this.props.book.price}{" "}
                 {this.state.addedToCart && <span> Aggiunto al carello </span>} -
@@ -82,7 +84,7 @@ class SingleBook extends Component {
                   Add To Cart <i className="bi bi-cart4"></i>
                 </Button>
               </OverlayTrigger>
-              {/* {this.state.selezionato && <CommentArea elementID={this.props.book.asin} />} */}
+              {this.state.selezionato && <CommentArea elementID={this.props.book.asin} />}
             </Card.Body>
           </Card>
         </Col>
